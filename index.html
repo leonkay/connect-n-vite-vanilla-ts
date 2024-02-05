@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <div id="app">
+      <div x-data>
+        <div class="setup">
+          <h1>
+            Let's Play Connect
+            <template x-if="!$store.initialized">
+              <input type="text" min="1" id="winCondition"
+                class="winConditionInput inputTag"
+                x-model="$store.ready.winCondition"/>
+            </template>
+            <template x-if="$store.initialized">
+              <span x-text="$store.ready.winCondition">winCondition</span>
+            </template>
+            with
+            <template x-if="!$store.initialized">
+              <input type="text" min="1" id="playerCount"
+                class="playerCountInput inputTag"
+                x-model="$store.ready.playerCount"/>
+            </template>
+            <template x-if="$store.initialized">
+              <span x-text="$store.ready.playerCount">playerCount</span>
+            </template>
+            Players!
+          </h1>
+          </script>
+          <template x-if="!$store.initialized">
+            <button x-on:click="window.Init(parseInt($store.ready.winCondition), parseInt($store.ready.playerCount))">Initialize</button>
+          </template>
+        </div>
+        <template x-if="$store.initialized">
+          <div class="initialized">
+            <div class="actors">
+              <div class="playerList">
+                <div>Players: </div>
+                <div>
+                  <ul class="players">
+                    <template x-for="actor in $store.connect.engine.actors">
+                      <li>Player <span x-text="actor.symbol" :style="{color: actor.color}">symbol</span></li>
+                    </template>
+                  </ul>
+                </div>
+              </div>
+              <template x-if="$store.connect.win.winner">
+                <div>
+                  <div class="winningPlayer">Player: <span x-text="$store.connect.win.winner.symbol" :style="{color: $store.connect.win.winner.color}">player</span> Won! <button @click="window.location.reload()">Reset Game</button></div>
+                </div>
+              </template>
+              <template x-if="!$store.connect.win.winner">
+                <div class="currentPlayer">Currently Playing as Player: <span x-text="$store.connect.engine.currentActor.symbol" :style="{color: $store.connect.engine.currentActor.color}">player</span></div>
+              </template>
+            </div>
+            <div class="instructions">Click on a Column to Play a Move</div>
+            <div class="connectGrid">
+              <template x-for="(col, idx) in $store.grid.val.cols">
+                <div class="connectColumn" x-on:click="$store.connect.engine.makeMove(idx)">
+                  <template x-for="val in col.values">
+                    <div>
+                      <template x-if="val < 0">
+                        <div class="connectSlot emptySlot">--</div>
+                      </template>
+                      <template x-if="val > 0">
+                        <div x-text="val" class="connectSlot"
+                        :style="{color: $store.connect.actors[val - 1].color}"
+                        >val</div>
+                      </template>
+                    </div>
+                  </template>
+                </div>
+              </template>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
