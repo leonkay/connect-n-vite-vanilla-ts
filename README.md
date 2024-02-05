@@ -12,7 +12,7 @@ board.
 In this case, the `height = winCondition + winCondition / 2` and
 `width = winCondition * 2 - 1`;
 
-## Getting Started
+## Getting Started - Manual Way
 To run the game, install all dependencies, and run the `dev` task.
 
 ```
@@ -22,6 +22,24 @@ To run the game, install all dependencies, and run the `dev` task.
 
 The game should be running at [http://localhost:5173](http://localhost:5173), but
 verify this in the output of the `dev` task.
+
+## Getting Started - Containerized Way
+To run, ensure you have Docker or Podman installed.
+
+If Using Podman
+```
+  $ podman build -t connect_n .
+  $ podman run -p 3000:3000 connect_n
+```
+
+If Using Docker
+```
+  $ docker build -t connect_n .
+  $ docker run -p 3000:3000 connect_n
+```
+
+The game should be running at [http://localhost:3000](http://localhost:3000), but
+verify this in the output of the docker/podman command.
 
 ### Dev Environment
 All development and testing was done using
