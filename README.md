@@ -23,6 +23,13 @@ To run the game, install all dependencies, and run the `dev` task.
 The game should be running at [http://localhost:5173](http://localhost:5173), but
 verify this in the output of the `dev` task.
 
+### Dev Environment
+All development and testing was done using
+
+- Node v20.4.0
+- VSCode
+- Safari on Mac
+
 ## Playing the Game
 
 You can customize the win condition `winCondition` and number of players `playerCount` by altering those inputs
