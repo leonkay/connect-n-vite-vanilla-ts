@@ -20,7 +20,7 @@ To run the game, install all dependencies, and run the `dev` task.
   $ npm run dev
 ```
 
-The game should be running at (http://localhost:5173)[http://localhost:5173], but
+The game should be running at [http://localhost:5173](http://localhost:5173), but
 verify this in the output of the `dev` task.
 
 ## Playing the Game
@@ -42,15 +42,15 @@ horizontally, vertically, or diagonally.
 
 ## Technology Choices
 
-This was built as a Typescript / Html Web App. As such, (Vite)[https://vitejs.dev] proved to be the simplest
+This was built as a Typescript / Html Web App. As such, [Vite](https://vitejs.dev) proved to be the simplest
 option for bootstrapping the project in "vanilla / typescript" mode.
 
 To simplify event handling and rendering of changes to the grid reactively, a lightweight
-library (AlpineJS)[https://alpinejs.dev] was leveraged. Using the `store` capability,
+library [AlpineJS](https://alpinejs.dev) was leveraged. Using the `store` capability,
 changes to the underlying model would reactively change the view.
 
 This resulted in a relatively light weight "presentation" model entirely encapsulated
-in (index.html)[index.html].
+in [index.html](index.html).
 
 ### Testing
 Instead of `jest`, the general recommendation when using `vite` to create applications
