@@ -52,6 +52,10 @@ changes to the underlying model would reactively change the view.
 This resulted in a relatively light weight "presentation" model entirely encapsulated
 in [index.html](index.html).
 
+It should be noted that I was only tangentially aware of AlpineJS through learning
+about HTMX. Getting started and familiar with AlpineJS's API was extremely simple.
+
+
 ### Testing
 Instead of `jest`, the general recommendation when using `vite` to create applications
 is to use `vitest`, as done here. Tests can be run with `npm run test`.
