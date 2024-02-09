@@ -33,7 +33,12 @@
           </h1>
           </script>
           <template x-if="!$store.initialized">
-            <button x-on:click="window.Init(parseInt($store.ready.winCondition), parseInt($store.ready.playerCount))">Initialize</button>
+            <div>
+              <button x-on:click="window.Init(parseInt($store.ready.winCondition), parseInt($store.ready.playerCount))">Initialize</button>
+              <template x-if="$store.error.hasError">
+                <div class="error"><span x-text="$store.error.errorMsg">Error</span></div>
+              </template>
+            </div>
           </template>
         </div>
         <template x-if="$store.initialized">
@@ -49,13 +54,24 @@
                   </ul>
                 </div>
               </div>
-              <template x-if="$store.connect.win.winner">
+              <template x-if="$store.connect.engine.status !== 'STALEMATE'">
                 <div>
-                  <div class="winningPlayer">Player: <span x-text="$store.connect.win.winner.symbol" :style="{color: $store.connect.win.winner.color}">player</span> Won! <button @click="window.location.reload()">Reset Game</button></div>
+                  <template x-if="$store.connect.win.winner">
+                    <div>
+                      <div class="winningPlayer">Player: <span x-text="$store.connect.win.winner.symbol" :style="{color: $store.connect.win.winner.color}">player</span> Won! <button @click="window.location.reload()">Reset Game</button></div>
+                    </div>
+                  </template>
+                  <template x-if="!$store.connect.win.winner">
+                    <div class="currentPlayer">Currently Playing as Player: <span x-text="$store.connect.engine.currentActor.symbol" :style="{color: $store.connect.engine.currentActor.color}">player</span></div>
+                  </template>
                 </div>
               </template>
-              <template x-if="!$store.connect.win.winner">
-                <div class="currentPlayer">Currently Playing as Player: <span x-text="$store.connect.engine.currentActor.symbol" :style="{color: $store.connect.engine.currentActor.color}">player</span></div>
+              <template x-if="$store.connect.engine.status === 'STALEMATE'">
+                <div>
+                  <div>
+                    <div class="staleMate">No Winner, Stalemate! <button @click="window.location.reload()">Reset Game</button></div>
+                  </div>
+                </div>
               </template>
             </div>
             <div class="instructions">Click on a Column to Play a Move</div>

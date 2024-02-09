@@ -1,7 +1,7 @@
 import { Actor, ActorType, FromActorType } from "./Actor";
 import { ConnectGrid } from "./ConnectGrid";
 
-export type GameStatus = "PLAYING" | "WINNER" | "NOWINNER";
+export type GameStatus = "PLAYING" | "WINNER" | "NOWINNER" | "STALEMATE";
 
 /**
  * Minimum interface to build out a grid in order

@@ -36,7 +36,8 @@ export class Engine {
         private grid: ConnectGrid,
         private _actors: Actor[] = [],
         private playerIndex: number = 0,
-        private status: GameStatus = "PLAYING",
+        private _status: GameStatus = "PLAYING",
+        private moveCount: number = 0,
     ) {}
 
     get currentActor(): Actor {
@@ -45,6 +46,10 @@ export class Engine {
 
     get actors(): Actor[] {
         return this._actors;
+    }
+
+    get status(): GameStatus {
+        return this._status;
     }
 
     /**
@@ -68,22 +73,26 @@ export class Engine {
      * @returns the current gameStatus
      */
     makeMove(colIdx: number): GameStatus {
-        if (this.status != "PLAYING") {
+        if (this._status != "PLAYING") {
             console.log("Game not playable");
-            return this.status;
+            return this._status;
         }
         const actor = this.actors[this.playerIndex];
         const index = this.play(actor, colIdx);
         if (index !== null) {
+            this.moveCount++;
             actor.successfulMove(colIdx, index);
             const gameStatus = this.winCondition.didWin(actor, this.grid);
             if (gameStatus === "PLAYING") {
                 this.playerIndex = (this.playerIndex + 1) % this.actors.length;
+                if (this.moveCount === this.grid.maxCapacity) {
+                    this._status = "STALEMATE";
+                }
             } else {
-                this.status = gameStatus;
+                this._status = gameStatus;
             }
         }
-        return this.status;
+        return this._status;
     }
 
     toJSON(): EngineType {
@@ -92,7 +101,7 @@ export class Engine {
             grid: this.grid.toJSON(),
             actors: this.actors.map((act) => act.toJSON()),
             playerIndex: this.playerIndex,
-            status: this.status,
+            status: this._status,
         };
     }
 }

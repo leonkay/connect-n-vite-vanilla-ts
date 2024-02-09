@@ -13,11 +13,15 @@ export function FromConnectGridType(type: ConnectGridType): ConnectGrid {
 }
 
 /**
- * A model to track the Columns in the Grid. 
+ * A model to track the Columns in the Grid.
  */
 export class ConnectGrid {
     constructor(private _height: number = 6, private columns: Column[] = []) {}
 
+    get maxCapacity(): number {
+        return this._height * this.cols.length;
+    }
+    
     height(): number {
         return this._height;
     }

@@ -111,3 +111,13 @@ button:focus-visible {
 .playerList {
   display: flex;
 }
+
+.staleMate {
+  font-weight: 900;
+  color: red;
+}
+
+.error {
+  color: red;
+  font-weight: 600;
+}

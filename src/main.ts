@@ -26,8 +26,32 @@ Alpine.store("ready", {
 
 Alpine.store("initialized", false);
 
+Alpine.store("error", {
+  hasError: false,
+  errorMsg: ""
+});
 
 function initializeAlpineStore(winCondition: number , playerCount: number) {
+
+  if (winCondition < 1 || winCondition > 20) {
+    Alpine.store("error", {
+      hasError: true,
+      errorMsg: "Set Up Win Condition Value between 1 and 20"
+    });
+    return;
+  }
+  if (playerCount < 1 || playerCount > 50) {
+    Alpine.store("error", {
+      hasError: true,
+      errorMsg: "Set Up Player Count between 1 and 50"
+    }
+   );
+    return;
+  }
+  Alpine.store("error", {
+    hasError: false,
+    errorMsg: ""
+  });
 
   window.WinCondition = new ConnectNWinCondition(winCondition);
   window.Grid = new ConnectGrid(window.WinCondition.colHeight());
