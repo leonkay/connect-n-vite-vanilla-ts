@@ -174,3 +174,13 @@ test("ConnectNWinCondition - Diagonal Down Right", () => {
     expect(condition.didWin(actor1, grid)).toEqual("WINNER");
     expect(condition.didWin(actor2, grid)).toEqual("NOWINNER");
 });
+
+test("WinCondition - Utility", () => {
+    let condition = new ConnectNWinCondition(4);
+    expect(condition.colHeight()).toEqual(6);
+    expect(condition.numCol()).toEqual(7);
+
+    condition = new ConnectNWinCondition(3);
+    expect(condition.colHeight()).toEqual(4);
+    expect(condition.numCol()).toEqual(5);
+})
