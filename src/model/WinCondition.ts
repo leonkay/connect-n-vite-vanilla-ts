@@ -58,7 +58,7 @@ export class ConnectNWinCondition {
     }
 
     colHeight(): number {
-        return this.connectN + this.connectN / 2;
+        return Math.floor(this.connectN + this.connectN / 2);
     }
 
     numCol(): number {

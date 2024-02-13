@@ -30,7 +30,7 @@ export class Column {
      * was placed
      */
     placeToken(actor: number, maxHeight: number): null | number {
-        if (this.state.length === maxHeight) {
+        if (this.state.length >= maxHeight) {
             return null;
         }
         this.state.push(actor);
