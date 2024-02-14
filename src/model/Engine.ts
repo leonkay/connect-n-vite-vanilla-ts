@@ -37,7 +37,7 @@ export class Engine {
         private _actors: Actor[] = [],
         private playerIndex: number = 0,
         private _status: GameStatus = "PLAYING",
-        private moveCount: number = 0,
+        private _moveCount: number = 0,
     ) {}
 
     get currentActor(): Actor {
@@ -52,6 +52,13 @@ export class Engine {
         return this._status;
     }
 
+    set status(status: GameStatus) {
+        this._status = status;
+    }
+
+    get moveCount(): number {
+        return this._moveCount
+    }
     /**
      * Utility for placing the token in a column by the actor
      * @param actor
@@ -66,33 +73,19 @@ export class Engine {
         return col.placeToken(actor.symbol, this.grid.height());
     }
 
-    /**
-     * Action when player makes a move, testing the winCondition and updates the
-     * game status.
-     * @param colIdx
-     * @returns the current gameStatus
-     */
-    makeMove(colIdx: number): GameStatus {
+    simpleMove(colIdx: number): null | number {
         if (this._status != "PLAYING") {
             console.log("Game not playable");
-            return this._status;
+            return null;
         }
         const actor = this.actors[this.playerIndex];
         const index = this.play(actor, colIdx);
         if (index !== null) {
-            this.moveCount++;
+            this._moveCount++;
             actor.successfulMove(colIdx, index);
-            const gameStatus = this.winCondition.didWin(actor, this.grid);
-            if (gameStatus === "PLAYING") {
-                this.playerIndex = (this.playerIndex + 1) % this.actors.length;
-                if (this.moveCount === this.grid.maxCapacity) {
-                    this._status = "STALEMATE";
-                }
-            } else {
-                this._status = gameStatus;
-            }
+            this.playerIndex = (this.playerIndex + 1) % this.actors.length;
         }
-        return this._status;
+        return index;
     }
 
     toJSON(): EngineType {

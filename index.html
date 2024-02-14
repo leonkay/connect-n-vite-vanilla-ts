@@ -54,19 +54,19 @@
                   </ul>
                 </div>
               </div>
-              <template x-if="$store.connect.engine.status !== 'STALEMATE'">
+              <template x-if="$store.gameStatus.status !== 'STALEMATE'">
                 <div>
-                  <template x-if="$store.connect.win.winner">
+                  <template x-if="$store.winner.player">
                     <div>
-                      <div class="winningPlayer">Player: <span x-text="$store.connect.win.winner.symbol" :style="{color: $store.connect.win.winner.color}">player</span> Won! <button @click="window.location.reload()">Reset Game</button></div>
+                      <div class="winningPlayer">Player: <span x-text="$store.winner.player.symbol" :style="{color: $store.winner.player.color}">player</span> Won! <button @click="window.location.reload()">Reset Game</button></div>
                     </div>
                   </template>
-                  <template x-if="!$store.connect.win.winner">
+                  <template x-if="!$store.winner.player">
                     <div class="currentPlayer">Currently Playing as Player: <span x-text="$store.connect.engine.currentActor.symbol" :style="{color: $store.connect.engine.currentActor.color}">player</span></div>
                   </template>
                 </div>
               </template>
-              <template x-if="$store.connect.engine.status === 'STALEMATE'">
+              <template x-if="$store.gameStatus.status === 'STALEMATE'">
                 <div>
                   <div>
                     <div class="staleMate">No Winner, Stalemate! <button @click="window.location.reload()">Reset Game</button></div>
@@ -77,7 +77,7 @@
             <div class="instructions">Click on a Column to Play a Move</div>
             <div class="connectGrid">
               <template x-for="(col, idx) in $store.grid.val.cols">
-                <div class="connectColumn" x-on:click="$store.connect.engine.makeMove(idx)">
+                <div class="connectColumn" x-on:click="$store.connect.engine.simpleMove(idx)">
                   <template x-for="val in col.values">
                     <div>
                       <template x-if="val < 0">

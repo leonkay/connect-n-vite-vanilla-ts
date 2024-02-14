@@ -22,27 +22,27 @@ test("ConnectNWinCondition - Horizontal", () => {
     expect(condition.didWin(actor1, grid)).toEqual("PLAYING");
 
     // player 1 move to col 0
-    engine.makeMove(0);
+    engine.simpleMove(0);
     expect(condition.didWin(actor1, grid)).toEqual("PLAYING");
 
-    engine.makeMove(2);
+    engine.simpleMove(2);
     expect(condition.didWin(actor1, grid)).toEqual("PLAYING");
 
-    engine.makeMove(4);
+    engine.simpleMove(4);
     expect(condition.didWin(actor1, grid)).toEqual("PLAYING");
 
-    engine.makeMove(5);
+    engine.simpleMove(5);
     expect(condition.didWin(actor1, grid)).toEqual("PLAYING");
 
-    engine.makeMove(0);
+    engine.simpleMove(0);
     expect(condition.didWin(actor1, grid)).toEqual("PLAYING");
 
-    engine.makeMove(3);
+    engine.simpleMove(3);
     console.log(grid.printGrid(""));
     expect(condition.didWin(actor1, grid)).toEqual("WINNER");
 
     // an extra move shouldn't do anything to the game status
-    engine.makeMove(6);
+    engine.simpleMove(6);
     expect(condition.didWin(actor1, grid)).toEqual("WINNER");
 });
 
@@ -61,27 +61,27 @@ test("ConnectNWinCondition - Vertical", () => {
     expect(condition.didWin(actor1, grid)).toEqual("PLAYING");
 
     // player 1 move to col 0
-    engine.makeMove(0);
+    engine.simpleMove(0);
     expect(condition.didWin(actor1, grid)).toEqual("PLAYING");
 
-    engine.makeMove(2);
+    engine.simpleMove(2);
     expect(condition.didWin(actor1, grid)).toEqual("PLAYING");
 
-    engine.makeMove(0);
+    engine.simpleMove(0);
     expect(condition.didWin(actor1, grid)).toEqual("PLAYING");
 
-    engine.makeMove(5);
+    engine.simpleMove(5);
     expect(condition.didWin(actor1, grid)).toEqual("PLAYING");
 
-    engine.makeMove(0);
+    engine.simpleMove(0);
     expect(condition.didWin(actor1, grid)).toEqual("PLAYING");
 
-    engine.makeMove(0);
+    engine.simpleMove(0);
     console.log(grid.printGrid(""));
     expect(condition.didWin(actor1, grid)).toEqual("WINNER");
 
     // an extra move shouldn't do anything to the game status
-    engine.makeMove(0);
+    engine.simpleMove(0);
     expect(condition.didWin(actor1, grid)).toEqual("WINNER");
 });
 
@@ -97,35 +97,35 @@ test("ConnectNWinCondition - Diagonal Up Right", () => {
     }
 
     let engine = new Engine(condition, grid, [actor1, actor2]);
-    engine.makeMove(0);
-    engine.makeMove(1);
+    engine.simpleMove(0);
+    engine.simpleMove(1);
 
-    engine.makeMove(2);
-    engine.makeMove(2);
+    engine.simpleMove(2);
+    engine.simpleMove(2);
 
-    engine.makeMove(3);
-    engine.makeMove(3);
+    engine.simpleMove(3);
+    engine.simpleMove(3);
 
-    engine.makeMove(2);
-    engine.makeMove(3);
+    engine.simpleMove(2);
+    engine.simpleMove(3);
 
-    engine.makeMove(3);
-    engine.makeMove(4);
+    engine.simpleMove(3);
+    engine.simpleMove(4);
 
-    engine.makeMove(3);
-    engine.makeMove(5);
+    engine.simpleMove(3);
+    engine.simpleMove(5);
 
     expect(condition.didWin(actor1, grid)).toEqual("PLAYING");
     expect(condition.didWin(actor2, grid)).toEqual("PLAYING");
 
-    engine.makeMove(1);
+    engine.simpleMove(1);
 
     console.log(grid.printGrid(""));
     expect(condition.didWin(actor1, grid)).toEqual("WINNER");
     expect(condition.didWin(actor2, grid)).toEqual("NOWINNER");
 
     // an extra move shouldn't do anything to the game status
-    engine.makeMove(0);
+    engine.simpleMove(0);
     expect(condition.didWin(actor1, grid)).toEqual("WINNER");
     expect(condition.didWin(actor2, grid)).toEqual("NOWINNER");
 });
@@ -142,35 +142,35 @@ test("ConnectNWinCondition - Diagonal Down Right", () => {
     }
 
     let engine = new Engine(condition, grid, [actor1, actor2]);
-    engine.makeMove(0);
-    engine.makeMove(0);
+    engine.simpleMove(0);
+    engine.simpleMove(0);
 
-    engine.makeMove(0);
-    engine.makeMove(5);
+    engine.simpleMove(0);
+    engine.simpleMove(5);
 
-    engine.makeMove(1);
-    engine.makeMove(1);
+    engine.simpleMove(1);
+    engine.simpleMove(1);
 
-    engine.makeMove(1);
-    engine.makeMove(2);
+    engine.simpleMove(1);
+    engine.simpleMove(2);
 
-    engine.makeMove(3);
-    engine.makeMove(3);
+    engine.simpleMove(3);
+    engine.simpleMove(3);
 
-    engine.makeMove(0);
-    engine.makeMove(5);
+    engine.simpleMove(0);
+    engine.simpleMove(5);
 
     expect(condition.didWin(actor1, grid)).toEqual("PLAYING");
     expect(condition.didWin(actor2, grid)).toEqual("PLAYING");
 
-    engine.makeMove(2);
+    engine.simpleMove(2);
 
     console.log(grid.printGrid(""));
     expect(condition.didWin(actor1, grid)).toEqual("WINNER");
     expect(condition.didWin(actor2, grid)).toEqual("NOWINNER");
 
     // an extra move shouldn't do anything to the game status
-    engine.makeMove(0);
+    engine.simpleMove(0);
     expect(condition.didWin(actor1, grid)).toEqual("WINNER");
     expect(condition.didWin(actor2, grid)).toEqual("NOWINNER");
 });

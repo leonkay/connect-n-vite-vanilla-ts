@@ -54,7 +54,7 @@ function initializeAlpineStore(winCondition: number , playerCount: number) {
   });
 
   window.WinCondition = new ConnectNWinCondition(winCondition);
-  window.Grid = new ConnectGrid(window.WinCondition.colHeight());
+  window.Grid = Alpine.reactive(new ConnectGrid(window.WinCondition.colHeight()));
 
   const actors = [...Array(playerCount).keys()].map((idx) => new Actor(idx + 1))
   window.Engine = new Engine(window.WinCondition, window.Grid, actors)
@@ -72,9 +72,43 @@ function initializeAlpineStore(winCondition: number , playerCount: number) {
   });
 
   Alpine.store("grid", {
-    val: window.Grid
+    val: window.Grid,
   });
 
+  Alpine.store("players", {
+    current: 0,
+  });
+
+  Alpine.store("winner", {
+    player: null
+  });
+  Alpine.store("gameStatus", {
+    status: "PLAYING"
+  });
+
+  Alpine.effect(() => {
+    console.log(window.Grid.printGrid(""));
+
+    const actors = window.Engine.actors;
+    actors.forEach((act) => {
+      const status = window.WinCondition.didWin(act, window.Grid)
+      if (status === 'WINNER') {
+        window.Engine.status = 'WINNER';
+        Alpine.store("winner", {
+          player: act
+        });
+        Alpine.store("gameStatus",{
+          status: "WINNER"
+        });
+      } else if (status === 'PLAYING') {
+        if (window.Grid.maxCapacity === window.Engine.moveCount) {
+          Alpine.store("gameStatus", {
+            status: "STALEMATE"
+          })
+        }
+      }
+    })
+  })
   // with the game engine setup, set initialized to true to render the board.
   Alpine.store("initialized", true);
 }
